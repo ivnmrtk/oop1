@@ -8,20 +8,35 @@ class BankClient : Person
 {
 private:
     unsigned long currentAccount;
-    MyString *servicePackageTitle;
+    char *servicePackageTitle;
     bool isActive;
 
 public:
     BankClient();
-    BankClient(MyString *_firstName,
-               MyString *_lastName,
+    BankClient(char *_firstName,
+               char *_lastName,
                unsigned short _age,
                bool _isDead,
                bool _isMarried,
                unsigned long _currentAccount,
-               MyString *_servicePackageTitle,
+               char *_servicePackageTitle,
                bool _isActive);
-
+    BankClient(BankClient const &obj);
+    unsigned long getCurrentAccount() const;
+    void setCurrentAccount(unsigned long value);
+    char *getServicePackageTitle() const;
+    void setServicePackageTitle(char *value);
+    bool getIsActive() const;
+    void setIsActive(bool value);
+    void setAll(char *_firstName,
+                char *_lastName,
+                unsigned short _age,
+                bool _isDead,
+                bool _isMarried,
+                unsigned long _currentAccount,
+                char *_servicePackageTitle,
+                bool _isActive);
+    ~BankClient();
 };
 
 #endif // BANKCLIENT_H

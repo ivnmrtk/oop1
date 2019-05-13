@@ -2,24 +2,33 @@
 
 
 
-MyString *Person::getFirstName() const
+char *Person::getFirstName() const
 {
     return firstName;
 }
 
-void Person::setFirstName(MyString *value)
+void Person::setFirstName(char *value)
 {
-    firstName = value;
+    if (this->firstName != nullptr){
+        delete [] this->firstName;
+    }
+    this->firstName = new char [strlen(value + 1)];
+    strcpy(this->firstName, value);
+
 }
 
-MyString *Person::getLastName() const
+char *Person::getLastName() const
 {
     return lastName;
 }
 
-void Person::setLastName(MyString *value)
+void Person::setLastName(char *value)
 {
-    lastName = value;
+    if (this->lastName != nullptr){
+        delete [] this->lastName;
+    }
+    this->lastName = new char [strlen(value + 1)];
+    strcpy(this->lastName, value);
 }
 
 unsigned short Person::getAge() const
@@ -52,10 +61,10 @@ void Person::setIsMarried(bool value)
     isMarried = value;
 }
 
-void Person::setAll(MyString *_firstName, MyString *_lastName, unsigned short _age, bool _isDead, bool _isMarried)
+void Person::setAll(char *_firstName, char *_lastName, unsigned short _age, bool _isDead, bool _isMarried)
 {
-    firstName = _firstName;
-    lastName = _lastName;
+    setFirstName(_firstName);
+    setLastName(_lastName);
     age = _age;
     isDead = _isDead;
     isMarried = _isMarried;
@@ -64,8 +73,8 @@ void Person::setAll(MyString *_firstName, MyString *_lastName, unsigned short _a
 
 Person::Person()
 {
-    firstName = new MyString("\0");
-    lastName = new MyString("\0");
+    firstName[0] = '\0';
+    lastName[0] = '\0';
     age = 0;
     isDead = false;
     isMarried = false;
@@ -83,7 +92,7 @@ Person::Person(const Person &obj)
     setAll(obj.getFirstName(), obj.getLastName(), obj.getAge(), obj.getIsDead(), obj.getIsMarried());
 }
 
-Person::Person(MyString *_firstName, MyString *_lastName,
+Person::Person(char *_firstName, char *_lastName,
                const unsigned short _age, const bool _isDead,
                const bool _isMarried)
 {
@@ -95,6 +104,25 @@ Person::Person(MyString *_firstName, MyString *_lastName,
     isMarried = _isMarried;
     */
     setAll(_firstName, _lastName, _age, _isDead, _isMarried);
+}
+
+const Person &Person::operator=(const Person &obj)
+{
+    if (this == &obj){
+        return *this;
+    }
+    if (firstName != nullptr){
+        delete [] firstName;
+    }
+    if (lastName != nullptr){
+        delete [] lastName;
+    }
+    setFirstName(obj.getFirstName());
+    setLastName(obj.getLastName());
+    age = obj.getAge();
+    isDead = obj.getIsDead();
+    isMarried = obj.getIsMarried();
+    return *this;
 }
 
 Person::~Person()
