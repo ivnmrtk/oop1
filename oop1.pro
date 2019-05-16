@@ -18,7 +18,8 @@ SOURCES += \
     bankclient.cpp \
         main.cpp \
     person.cpp \
-    mystring.cpp
+    mystring.cpp \
+    service.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,4 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     bankclient.h \
     person.h \
-    mystring.h
+    mystring.h \
+    service.h

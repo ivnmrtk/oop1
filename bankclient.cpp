@@ -84,3 +84,30 @@ BankClient::~BankClient()
 {
     delete [] servicePackageTitle;
 }
+
+std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
+{
+    return out << "BankClient("
+               << bankClient.firstName << ", "
+               << bankClient.lastName << ", "
+               << bankClient.age <<", "
+               << bankClient.isDead <<", "
+               << bankClient.isMarried<<", "
+               << bankClient.currentAccount<<", "
+               << bankClient.servicePackageTitle<<", "
+               << bankClient.isActive<<")";
+}
+
+std::istream& operator>>(std::istream &in, BankClient &bankClient)
+{
+    //Вроде должно работать, но надо бы переделать
+    in >> *bankClient.firstName;
+    in >> *bankClient.lastName;
+    in >> bankClient.age;
+    in >> bankClient.isDead;
+    in >> bankClient.isMarried;
+    in >> bankClient.currentAccount;
+    in >> bankClient.servicePackageTitle;
+    in >> bankClient.isActive;
+    return in;
+}
