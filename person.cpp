@@ -1,7 +1,5 @@
 #include "person.h"
 
-
-
 char *Person::getFirstName() const
 {
     return firstName;

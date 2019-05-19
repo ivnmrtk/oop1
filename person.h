@@ -6,7 +6,7 @@
 class Person
 {
 
-private:
+protected:
     char* firstName;
     char* lastName;
     unsigned short age;
@@ -35,7 +35,6 @@ public:
     virtual ~Person();
     friend std::ostream& operator<<(std::ostream &out, const Person &person);
     friend std::istream& operator>>(std::istream &in, Person &person);
-
 };
 
 #endif // PERSON_H

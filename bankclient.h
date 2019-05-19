@@ -4,7 +4,7 @@
 #include "person.h"
 
 
-class BankClient : Person
+class BankClient : public Person
 {
 private:
     unsigned long currentAccount;
