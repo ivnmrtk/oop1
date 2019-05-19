@@ -54,7 +54,7 @@ void Service::deleteRecordById(unsigned int id)
 void Service::showAllRecords()
 {
     for (unsigned int i=0; i < recordsCount - 1; i++) {
-        cout << i << ". "<< records [i];
+        cout << i << ". "<< records [i] << endl;
     }
 }
 

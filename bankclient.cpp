@@ -95,7 +95,7 @@ std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
                << bankClient.isMarried<<", "
                << bankClient.currentAccount<<", "
                << bankClient.servicePackageTitle<<", "
-               << bankClient.isActive<<")";
+               << bankClient.isActive<<")" << endl;
 }
 
 std::istream& operator>>(std::istream &in, BankClient &bankClient)

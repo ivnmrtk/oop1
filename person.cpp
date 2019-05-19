@@ -136,7 +136,7 @@ std::ostream& operator<<(std::ostream &out, const Person &person)
                << person.lastName << ", "
                << person.age <<", "
                << person.isDead <<", "
-               << person.isMarried<<")";
+               << person.isMarried<<")" << endl;
 }
 
 std::istream& operator>>(std::istream &in, Person &person)
