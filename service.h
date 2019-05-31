@@ -7,7 +7,7 @@ class Service
 {
 private:
     static unsigned int recordsCount;
-    Person * records;
+    Person ** records;
 public:
     Service();
     void addRecord(Person *obj);
