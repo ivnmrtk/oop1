@@ -2,6 +2,11 @@
 
 unsigned int Service::recordsCount = 0;
 
+unsigned int Service::getRecordsCount()
+{
+    return recordsCount;
+}
+
 Service::Service()
 {
 
@@ -11,17 +16,17 @@ void Service::addRecord(Person *obj)
 {
     recordsCount++;
     if (records == nullptr){
-        records = new Person[recordsCount];
-        records[recordsCount] = *obj;
+        records = new Person*[recordsCount];
+        records[recordsCount] = obj;
     }
     else {
-        Person *bufferArray = new Person[recordsCount];
+        Person **bufferArray = new Person*[recordsCount];
         for (unsigned int i=0; i< recordsCount - 2; i++) {
             bufferArray[i] = records[i];
         }
-        bufferArray[recordsCount - 1] = *obj;
+        bufferArray[recordsCount - 1] = obj;
         delete [] records;
-        records = new Person[recordsCount];
+        records = new Person*[recordsCount];
         for (unsigned int i=0; i< recordsCount - 1; i++) {
             records[i] = bufferArray[i];
         }
@@ -32,7 +37,7 @@ void Service::addRecord(Person *obj)
 void Service::deleteRecordById(unsigned int id)
 {
     recordsCount--;
-    Person *bufferArray = new Person[recordsCount];
+    Person **bufferArray = new Person*[recordsCount];
     unsigned int newIndex;
     for (unsigned int i=0; i<recordsCount;) {
         if (i >= (id - 1)) {
@@ -44,7 +49,7 @@ void Service::deleteRecordById(unsigned int id)
         bufferArray[i] = records[newIndex];
     }
     delete [] records;
-    records = new Person[recordsCount];
+    records = new Person*[recordsCount];
     for (unsigned int i = 0; i< recordsCount; i++) {
         records[i] = bufferArray[i];
     }
@@ -58,9 +63,14 @@ void Service::showAllRecords()
     }
 }
 
+void Service::updateRecord(unsigned int id, Person *obj)
+{
+    records[id-1] = obj;
+}
+
 Person &Service::operator[](int index)
 {
-    return records[index];
+    return *records[index];
 }
 
 Service::~Service()
