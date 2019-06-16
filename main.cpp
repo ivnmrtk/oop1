@@ -17,17 +17,23 @@ int main(int argc, char *argv[])
 
     //cout << obj;
 
-    char * operation = "";
+    char operation[255];
 
-    cout << "Enter necessary operation";
+    cout << "Enter necessary operation" << endl;
     cin >> operation;
+    cout << operation;
 
     while (!strcmp(operation, "exit")){
-        if (strncmp(operation, "add Person", strlen("add Person"))) {
-            //TODO
+        cout << "entering the loopp";
+        if (strncmp(operation, "addPerson", strlen("add Person"))) {
+            Person p;
+            cin >> p;
+            mainService.addRecord(&p);
         }
-        else if (strncmp(operation, "add BankClient", strlen("add BankClient"))) {
-
+        else if (strncmp(operation, "addBankClient", strlen("add BankClient"))) {
+            BankClient bc;
+            cin >> bc;
+            mainService.addRecord(&bc);
         }
         else if (strncmp(operation, "show", strlen("show"))) {
             mainService.showAllRecords();

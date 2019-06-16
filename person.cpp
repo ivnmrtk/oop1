@@ -7,11 +7,11 @@ char *Person::getFirstName() const
 
 void Person::setFirstName(char *value)
 {
-    if (this->firstName != nullptr){
-        delete [] this->firstName;
+    if (firstName != nullptr){
+        delete [] firstName;
     }
-    this->firstName = new char [strlen(value + 1)];
-    strcpy(this->firstName, value);
+    firstName = new char [strlen(value + 1)];
+    strcpy(firstName, value);
 
 }
 
@@ -22,11 +22,11 @@ char *Person::getLastName() const
 
 void Person::setLastName(char *value)
 {
-    if (this->lastName != nullptr){
-        delete [] this->lastName;
+    if (lastName != nullptr){
+        delete [] lastName;
     }
-    this->lastName = new char [strlen(value + 1)];
-    strcpy(this->lastName, value);
+    lastName = new char [strlen(value + 1)];
+    strcpy(lastName, value);
 }
 
 unsigned short Person::getAge() const
@@ -142,10 +142,15 @@ std::ostream& operator<<(std::ostream &out, const Person &person)
 std::istream& operator>>(std::istream &in, Person &person)
 {
     //Вроде должно работать, но надо бы переделать
-    in >> *person.firstName;
-    in >> *person.lastName;
+    cout << "First name:";
+    in >> person.firstName;
+    cout << "Last name:";
+    in >> person.lastName;
+    cout << "Age:";
     in >> person.age;
+    cout << "Is dead (1 - true, 0 - false):";
     in >> person.isDead;
+    cout << "Is married (1 - true, 0 - false):";
     in >> person.isMarried;
     return in;
 }

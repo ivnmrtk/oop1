@@ -23,12 +23,11 @@ BankClient::BankClient(char *_firstName,
     isActive = _isActive;
 }
 
-BankClient::BankClient(const BankClient &obj)
+BankClient::BankClient(const BankClient &obj):Person(obj.firstName, obj.lastName, obj.age, obj.isDead, obj.isMarried)
 {
-    setAll(obj.getFirstName(), obj.getLastName(),
-           obj.getAge(), obj.getIsDead(),
-           obj.getIsMarried(), obj.getCurrentAccount(),
-           obj.getServicePackageTitle(), obj.getIsActive());
+    currentAccount = obj.currentAccount;
+    setServicePackageTitle(obj.servicePackageTitle);
+    isActive = obj.isActive;
 }
 
 unsigned long BankClient::getCurrentAccount() const
@@ -48,11 +47,11 @@ char *BankClient::getServicePackageTitle() const
 
 void BankClient::setServicePackageTitle(char *value)
 {
-    if (this->servicePackageTitle != nullptr){
-        delete [] this->servicePackageTitle;
+    if (servicePackageTitle != nullptr){
+        delete [] servicePackageTitle;
     }
-    this->servicePackageTitle = new char [strlen(value + 1)];
-    strcpy(this->servicePackageTitle, value);
+    servicePackageTitle = new char [strlen(value + 1)];
+    strcpy(servicePackageTitle, value);
 }
 
 bool BankClient::getIsActive() const
@@ -101,13 +100,21 @@ std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
 std::istream& operator>>(std::istream &in, BankClient &bankClient)
 {
     //Вроде должно работать, но надо бы переделать
-    in >> *bankClient.firstName;
-    in >> *bankClient.lastName;
+    cout << "First name: ";
+    in >> bankClient.firstName;
+    cout << "Last name: ";
+    in >> bankClient.lastName;
+    cout << "Age:";
     in >> bankClient.age;
+    cout << "Is dead (1 - true, 0 - false): ";
     in >> bankClient.isDead;
+    cout << "Is married (1 - true, 0 - false): ";
     in >> bankClient.isMarried;
+    cout << "Current account: ";
     in >> bankClient.currentAccount;
+    cout << "Service package title: ";
     in >> bankClient.servicePackageTitle;
+    cout << "Is active (1 - true, 0 - false): ";
     in >> bankClient.isActive;
     return in;
 }

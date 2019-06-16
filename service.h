@@ -1,13 +1,15 @@
 #ifndef SERVICE_H
 #define SERVICE_H
 #include "person.h"
-
+#include <fstream>
+#include "bankclient.h"
 
 class Service
 {
 private:
-    static unsigned int recordsCount;
+    unsigned int recordsCount = 0;
     Person ** records;
+    unsigned int getWordsCount(char * str);
 public:
     Service();
     void addRecord(Person *obj);
@@ -16,7 +18,9 @@ public:
     void updateRecord(unsigned int id, Person* obj);
     Person &operator[](int index);
     ~Service();
-    static unsigned int getRecordsCount();
+    unsigned int getRecordsCount();
+    bool readFromFile(char* path);
+    void saveToFile(char* path);
 };
 
 #endif // SERVICE_H
