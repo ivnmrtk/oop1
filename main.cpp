@@ -19,28 +19,30 @@ int main(int argc, char *argv[])
 
     char operation[255];
 
-    cout << "Enter necessary operation" << endl;
-    cin >> operation;
-    cout << operation;
+    while (strcmp(operation, "exit") != 0) {
 
-    while (!strcmp(operation, "exit")){
-        cout << "entering the loopp";
-        if (strncmp(operation, "addPerson", strlen("add Person"))) {
+        cout << "Enter necessary operation" << endl;
+        cin >> operation;
+
+        cout << "entering the loopp" << endl;
+
+        if (strcmp(operation, "addPerson") == 0) {
             Person p;
             cin >> p;
             mainService.addRecord(&p);
         }
-        else if (strncmp(operation, "addBankClient", strlen("add BankClient"))) {
+        else if (strcmp(operation, "addBankClient") == 0) {
             BankClient bc;
             cin >> bc;
             mainService.addRecord(&bc);
         }
-        else if (strncmp(operation, "show", strlen("show"))) {
+        else if (strcmp(operation, "show") == 0) {
             mainService.showAllRecords();
         }
-        else if (strncmp(operation, "count", strlen("count"))) {
+        else if (strcmp(operation, "count") == 0) {
             mainService.getRecordsCount();
         }
+        cout << "exit the loop" << endl;
     }
 
     return a.exec();

@@ -35,7 +35,7 @@ void Service::addRecord(Person *obj)
     }
     else {
         Person **bufferArray = new Person*[recordsCount];
-        for (unsigned int i=0; i< recordsCount - 2; i++) {
+        for (int i=0; i< recordsCount - 2; i++) {
             bufferArray[i] = records[i];
         }
         bufferArray[recordsCount - 1] = obj;

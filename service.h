@@ -8,7 +8,7 @@ class Service
 {
 private:
     unsigned int recordsCount = 0;
-    Person ** records;
+    Person ** records = nullptr;
     unsigned int getWordsCount(char * str);
 public:
     Service();

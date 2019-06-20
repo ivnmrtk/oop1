@@ -71,7 +71,9 @@ void Person::setAll(char *_firstName, char *_lastName, unsigned short _age, bool
 
 Person::Person()
 {
+    firstName = new char;
     firstName[0] = '\0';
+    lastName = new char;
     lastName[0] = '\0';
     age = 0;
     isDead = false;
@@ -141,15 +143,22 @@ std::ostream& operator<<(std::ostream &out, const Person &person)
 
 std::istream& operator>>(std::istream &in, Person &person)
 {
-    //Вроде должно работать, но надо бы переделать
     cout << "First name:";
-    in >> person.firstName;
+    char bufFirstName[255];
+    in >> bufFirstName;
+    person.setFirstName(bufFirstName);
+
     cout << "Last name:";
-    in >> person.lastName;
+    char bufLastName[255];
+    in >> bufLastName;
+    person.setLastName(bufLastName);
+
     cout << "Age:";
     in >> person.age;
+
     cout << "Is dead (1 - true, 0 - false):";
     in >> person.isDead;
+
     cout << "Is married (1 - true, 0 - false):";
     in >> person.isMarried;
     return in;
