@@ -131,17 +131,24 @@ Person::~Person()
     delete [] lastName;
 }
 
-std::ostream& operator<<(std::ostream &out, const Person &person)
+
+ostream& operator<<(std::ostream &out, const Person &person)
 {
-    return out << "Person("
-               << person.firstName << ", "
-               << person.lastName << ", "
-               << person.age <<", "
-               << person.isDead <<", "
-               << person.isMarried<<")" << endl;
+    person.toString(out);
+    return out;
 }
 
-std::istream& operator>>(std::istream &in, Person &person)
+void Person::toString(ostream &out) const
+{
+    out << "Person("
+              << "firstName=" << firstName << ", "
+              << "lastName=" << lastName << ", "
+              << "age=" << age <<", "
+              << "isDead=" << isDead <<", "
+              << "isMarried=" << isMarried<<")" << endl;
+}
+
+istream& operator>>(std::istream &in, Person &person)
 {
     cout << "First name:";
     char bufFirstName[255];

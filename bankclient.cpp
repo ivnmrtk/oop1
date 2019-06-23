@@ -4,6 +4,7 @@
 BankClient::BankClient(): Person ()
 {
     currentAccount = 0;
+    servicePackageTitle = new char;
     servicePackageTitle[0] = '\0';
     isActive = false;
 }
@@ -84,26 +85,41 @@ BankClient::~BankClient()
     delete [] servicePackageTitle;
 }
 
+
 std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
 {
-    return out << "BankClient("
-               << bankClient.firstName << ", "
-               << bankClient.lastName << ", "
-               << bankClient.age <<", "
-               << bankClient.isDead <<", "
-               << bankClient.isMarried<<", "
-               << bankClient.currentAccount<<", "
-               << bankClient.servicePackageTitle<<", "
-               << bankClient.isActive<<")" << endl;
+    bankClient.toString(out);
+    return out;
 }
+
+
+void BankClient::toString(ostream &out) const
+{
+    out << "BankClient("
+                   << firstName << ", "
+                   << lastName << ", "
+                   << age <<", "
+                   << isDead <<", "
+                   << isMarried<<", "
+                   << currentAccount<<", "
+                   << servicePackageTitle<<", "
+                   << isActive<<")" << endl;
+}
+
+
 
 std::istream& operator>>(std::istream &in, BankClient &bankClient)
 {
-    //Вроде должно работать, но надо бы переделать
     cout << "First name: ";
-    in >> bankClient.firstName;
-    cout << "Last name: ";
-    in >> bankClient.lastName;
+    char bufFirstName[255];
+    in >> bufFirstName;
+    bankClient.setFirstName(bufFirstName);
+
+    cout << "Last name:";
+    char bufLastName[255];
+    in >> bufLastName;
+    bankClient.setLastName(bufLastName);
+
     cout << "Age:";
     in >> bankClient.age;
     cout << "Is dead (1 - true, 0 - false): ";
@@ -112,8 +128,12 @@ std::istream& operator>>(std::istream &in, BankClient &bankClient)
     in >> bankClient.isMarried;
     cout << "Current account: ";
     in >> bankClient.currentAccount;
+
     cout << "Service package title: ";
-    in >> bankClient.servicePackageTitle;
+    char bufServicePackageTitle[255];
+    in >> bufServicePackageTitle;
+    bankClient.setServicePackageTitle(bufServicePackageTitle);
+
     cout << "Is active (1 - true, 0 - false): ";
     in >> bankClient.isActive;
     return in;

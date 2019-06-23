@@ -27,19 +27,22 @@ int main(int argc, char *argv[])
         cout << "entering the loopp" << endl;
 
         if (strcmp(operation, "addPerson") == 0) {
-            Person p;
-            cin >> p;
-            mainService.addRecord(&p);
+            Person *p = new Person();
+            cin >> *p;
+            mainService.addRecord(p);
         }
         else if (strcmp(operation, "addBankClient") == 0) {
-            BankClient bc;
-            cin >> bc;
-            mainService.addRecord(&bc);
+            BankClient *bc = new BankClient();
+            cin >> *bc;
+            mainService.addRecord(bc);
         }
         else if (strcmp(operation, "show") == 0) {
             mainService.showAllRecords();
         }
         else if (strcmp(operation, "count") == 0) {
+            mainService.getRecordsCount();
+        }
+        else if (strcmp(operation, "delete") == 0) {
             mainService.getRecordsCount();
         }
         cout << "exit the loop" << endl;

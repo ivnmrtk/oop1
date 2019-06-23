@@ -28,24 +28,24 @@ Service::Service()
 
 void Service::addRecord(Person *obj)
 {
-    recordsCount++;
-    if (records == nullptr){
+    if (recordsCount == 0) {
         records = new Person*[recordsCount];
         records[recordsCount] = obj;
     }
     else {
         Person **bufferArray = new Person*[recordsCount];
-        for (int i=0; i< recordsCount - 2; i++) {
+        for (int i=0; i< recordsCount; i++) {
             bufferArray[i] = records[i];
         }
-        bufferArray[recordsCount - 1] = obj;
-        delete [] records;
-        records = new Person*[recordsCount];
-        for (unsigned int i=0; i< recordsCount - 1; i++) {
-            records[i] = bufferArray[i];
+        //FIXME
+        delete []  *records;
+        records = new Person*[recordsCount + 1];
+        for (int i =0; i< recordsCount; i++) {
+            records[i] = bufferArray [i];
         }
-        delete []  bufferArray;
+        records[recordsCount + 1] = obj;
     }
+    recordsCount++;
 }
 
 void Service::deleteRecordById(unsigned int id)
@@ -73,9 +73,9 @@ void Service::deleteRecordById(unsigned int id)
 
 void Service::showAllRecords()
 {
-    if (records != nullptr) {
-        for (unsigned int i=0; i < recordsCount - 1; i++) {
-            cout << i + 1 << ". "<< records [i] << endl;
+    if (recordsCount != 0) {
+        for (unsigned int i=0; i < recordsCount; i++) {
+            cout << i + 1 << ". "<< *records [i] << endl;
         }
     }
 }
@@ -97,7 +97,7 @@ bool Service::readFromFile(char *path)
     in.open(path);
     char inputLine[length];
     in.getline(inputLine, length);
-    if (getWordsCount(inputLine) == 5){
+    if (getWordsCount(inputLine) == 5) {
         Person p;
         p.setFirstName(strtok(inputLine, " "));
         p.setLastName(strtok(nullptr, " "));

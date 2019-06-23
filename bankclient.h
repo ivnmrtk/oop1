@@ -37,8 +37,9 @@ public:
                 char *_servicePackageTitle,
                 bool _isActive);
     ~BankClient();
-    friend std::ostream& operator<<(std::ostream &out, const BankClient &person);
+    friend std::ostream& operator<<(std::ostream &out, BankClient &person);
     friend std::istream& operator>>(std::istream &in, BankClient &person);
+    virtual void toString(std::ostream &out) const;
 };
 
 #endif // BANKCLIENT_H
