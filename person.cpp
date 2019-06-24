@@ -132,13 +132,13 @@ Person::~Person()
 }
 
 
-ostream& operator<<(std::ostream &out, const Person &person)
+std::ostream& operator<<(std::ostream &out, const Person &person)
 {
     person.toString(out);
     return out;
 }
 
-void Person::toString(ostream &out) const
+void Person::toString(std::ostream &out) const
 {
     out << "Person("
               << "firstName=" << firstName << ", "
@@ -148,7 +148,7 @@ void Person::toString(ostream &out) const
               << "isMarried=" << isMarried<<")" << endl;
 }
 
-istream& operator>>(std::istream &in, Person &person)
+std::istream& operator>>(std::istream &in, Person &person)
 {
     cout << "First name:";
     char bufFirstName[255];

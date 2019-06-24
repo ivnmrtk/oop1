@@ -3,6 +3,8 @@
 #include "mystring.h"
 #include <string.h>
 
+using namespace std;
+
 class Person
 {
 
@@ -33,9 +35,9 @@ public:
            bool _isMarried);
     const Person &operator=(const Person &aStr);
     virtual ~Person();
-    friend ostream& operator<<(std::ostream &out, Person &person);
-    friend istream& operator>>(std::istream &in, Person &person);
-    virtual void toString(ostream &out) const;
+    friend std::ostream& operator<<(std::ostream &out, const Person &person);
+    friend std::istream& operator>>(std::istream &in, Person &person);
+    virtual void toString(std::ostream &out) const;
 };
 
 #endif // PERSON_H

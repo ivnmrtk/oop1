@@ -93,7 +93,7 @@ std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
 }
 
 
-void BankClient::toString(ostream &out) const
+void BankClient::toString(std::ostream &out) const
 {
     out << "BankClient("
                    << firstName << ", "

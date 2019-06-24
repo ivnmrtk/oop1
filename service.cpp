@@ -29,8 +29,8 @@ Service::Service()
 void Service::addRecord(Person *obj)
 {
     if (recordsCount == 0) {
-        records = new Person*[recordsCount];
-        records[recordsCount] = obj;
+        records = new Person*[1];
+        records[0] = obj;
     }
     else {
         Person **bufferArray = new Person*[recordsCount];
@@ -38,12 +38,13 @@ void Service::addRecord(Person *obj)
             bufferArray[i] = records[i];
         }
         //FIXME
-        delete []  *records;
+        delete []  records;
         records = new Person*[recordsCount + 1];
         for (int i =0; i< recordsCount; i++) {
             records[i] = bufferArray [i];
         }
-        records[recordsCount + 1] = obj;
+        records[recordsCount] = obj;
+        delete [] bufferArray;
     }
     recordsCount++;
 }
