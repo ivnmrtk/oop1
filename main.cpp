@@ -5,17 +5,15 @@
 
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 
+void printSpecification();
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
     Service mainService = Service();
 
-    //Person *obj;
-
-    //obj = new BankClient("name", "last_name", 23, true, true, 200, "opt", true);
-
-    //cout << obj;
+    printSpecification();
 
     char operation[255];
 
@@ -24,7 +22,6 @@ int main(int argc, char *argv[])
         cout << "Enter necessary operation" << endl;
         cin >> operation;
 
-        cout << "entering the loopp" << endl;
 
         if (strcmp(operation, "addPerson") == 0) {
             Person *p = new Person();
@@ -45,8 +42,29 @@ int main(int argc, char *argv[])
         else if (strcmp(operation, "delete") == 0) {
             mainService.getRecordsCount();
         }
-        cout << "exit the loop" << endl;
+        else if (strcmp(operation, "save") == 0) {
+            mainService.saveToFile();
+        }
+        else if (strcmp(operation, "update") == 0) {
+            cout << "Enter element index" << endl;
+            int index;
+            cin >> index;
+
+            mainService.updateRecord(index - 1);
+        }
     }
 
     return a.exec();
+}
+
+void printSpecification(){
+    cout << "WELCOME!" << endl;
+    cout << "Type one of operations listed below:" << endl;
+    cout << "addPerson - to add new person" << endl;
+    cout << "addBankClient - to add new bank client" << endl;
+    cout << "show - to print all of array data" << endl;
+    cout << "count - to show count of records" << endl;
+    cout << "delete - to delete record by index (input will appears after entering)" << endl;
+    cout << "save - to save to file \"output.txt\"" << endl;
+    cout << "update - to update record by index (input will appears after entering)" << endl;
 }

@@ -96,14 +96,14 @@ std::ostream& operator<<(std::ostream &out, const BankClient &bankClient)
 void BankClient::toString(std::ostream &out) const
 {
     out << "BankClient("
-                   << firstName << ", "
-                   << lastName << ", "
-                   << age <<", "
-                   << isDead <<", "
-                   << isMarried<<", "
-                   << currentAccount<<", "
-                   << servicePackageTitle<<", "
-                   << isActive<<")" << endl;
+                   << "firstName=" << firstName << ", "
+                   << "lastName=" << lastName << ", "
+                   << "age=" << age <<", "
+                   << "isDead=" << isDead <<", "
+                   << "isMarried=" << isMarried<<", "
+                   << "currentAccount=" << currentAccount<<", "
+                   << "servicePackageTitle="<< servicePackageTitle<<", "
+                   << "isActive=" << isActive<<")" << endl;
 }
 
 
@@ -137,4 +137,9 @@ std::istream& operator>>(std::istream &in, BankClient &bankClient)
     cout << "Is active (1 - true, 0 - false): ";
     in >> bankClient.isActive;
     return in;
+}
+
+char BankClient::getClass()
+{
+    return 'B';
 }

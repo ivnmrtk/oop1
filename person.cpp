@@ -170,3 +170,8 @@ std::istream& operator>>(std::istream &in, Person &person)
     in >> person.isMarried;
     return in;
 }
+
+char Person::getClass()
+{
+    return 'P';
+}

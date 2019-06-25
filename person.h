@@ -38,6 +38,7 @@ public:
     friend std::ostream& operator<<(std::ostream &out, const Person &person);
     friend std::istream& operator>>(std::istream &in, Person &person);
     virtual void toString(std::ostream &out) const;
+    virtual char getClass();
 };
 
 #endif // PERSON_H

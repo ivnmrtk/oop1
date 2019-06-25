@@ -15,12 +15,12 @@ public:
     void addRecord(Person *obj);
     void deleteRecordById(unsigned int id);
     void showAllRecords();
-    void updateRecord(unsigned int id, Person* obj);
+    void updateRecord(unsigned int id);
     Person &operator[](int index);
     ~Service();
     unsigned int getRecordsCount();
     bool readFromFile(char* path);
-    void saveToFile(char* path);
+    void saveToFile();
 };
 
 #endif // SERVICE_H

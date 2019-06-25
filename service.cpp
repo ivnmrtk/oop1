@@ -49,13 +49,13 @@ void Service::addRecord(Person *obj)
     recordsCount++;
 }
 
+//Принимает индекс массива, а не отображаемый id.
 void Service::deleteRecordById(unsigned int id)
 {
     if (recordsCount == 0) return;
-    recordsCount--;
-    Person **bufferArray = new Person*[recordsCount];
+    Person **bufferArray = new Person*[recordsCount-1];
     unsigned int newIndex;
-    for (unsigned int i=0; i<recordsCount;) {
+    for (unsigned int i=0; i<recordsCount-1;) {
         if (i >= (id - 1)) {
             newIndex = i -1;
         }
@@ -65,11 +65,12 @@ void Service::deleteRecordById(unsigned int id)
         bufferArray[i] = records[newIndex];
     }
     delete [] records;
-    records = new Person*[recordsCount];
-    for (unsigned int i = 0; i< recordsCount; i++) {
+    records = new Person*[recordsCount-1];
+    for (unsigned int i = 0; i< recordsCount-1; i++) {
         records[i] = bufferArray[i];
     }
     delete [] bufferArray;
+    recordsCount--;
 }
 
 void Service::showAllRecords()
@@ -81,9 +82,27 @@ void Service::showAllRecords()
     }
 }
 
-void Service::updateRecord(unsigned int id, Person *obj)
+//Принимает индекс массива, а не отображаемый id.
+void Service::updateRecord(unsigned int id)
 {
-    records[id-1] = obj;
+    if (id > recordsCount){
+        cout << "Invalid index";
+        return;
+    }
+
+    char className = records[id]->getClass();
+    delete records[id];
+    if (className == 'P'){
+        Person *p = new Person();
+        cin >> *p;
+        records[id] = p;
+    }
+    if (className == 'B'){
+        BankClient *bc = new BankClient();
+        cin >> *bc;
+        records[id] = bc;
+    }
+
 }
 
 Person &Service::operator[](int index)
@@ -127,14 +146,18 @@ bool Service::readFromFile(char *path)
     else return false;
 }
 
-void Service::saveToFile(char *path)
+void Service::saveToFile()
 {
+    char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
     ofstream out;
     out.open(path);
-    for (int i = 0; i < recordsCount-1; ++i) {
-        out << records[i];
+    if (out.is_open()){
+    for (int i = 0; i < recordsCount; ++i) {
+        out << *records[i];
+    }
     }
 }
+
 
 Service::~Service()
 {

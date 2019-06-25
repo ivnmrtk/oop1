@@ -40,6 +40,7 @@ public:
     friend std::ostream& operator<<(std::ostream &out, const BankClient &person);
     friend std::istream& operator>>(std::istream &in, BankClient &person);
     virtual void toString(std::ostream &out) const;
+    virtual char getClass();
 };
 
 #endif // BANKCLIENT_H
