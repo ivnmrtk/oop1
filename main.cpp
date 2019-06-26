@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     while (strcmp(operation, "exit") != 0) {
 
-        cout << "Enter necessary operation" << endl;
+        cout << "\nEnter necessary operation" << endl;
         cin >> operation;
 
 
@@ -40,13 +40,18 @@ int main(int argc, char *argv[])
             mainService.getRecordsCount();
         }
         else if (strcmp(operation, "delete") == 0) {
-            mainService.getRecordsCount();
+            cout << "Enter element index to delete" << endl;
+            int index;
+            cin >> index;
+
+            mainService.deleteRecordById(index-1);
+
         }
         else if (strcmp(operation, "save") == 0) {
             mainService.saveToFile();
         }
         else if (strcmp(operation, "update") == 0) {
-            cout << "Enter element index" << endl;
+            cout << "Enter element index to update" << endl;
             int index;
             cin >> index;
 
@@ -58,13 +63,14 @@ int main(int argc, char *argv[])
 }
 
 void printSpecification(){
-    cout << "WELCOME!" << endl;
-    cout << "Type one of operations listed below:" << endl;
-    cout << "addPerson - to add new person" << endl;
-    cout << "addBankClient - to add new bank client" << endl;
-    cout << "show - to print all of array data" << endl;
-    cout << "count - to show count of records" << endl;
-    cout << "delete - to delete record by index (input will appears after entering)" << endl;
-    cout << "save - to save to file \"output.txt\"" << endl;
-    cout << "update - to update record by index (input will appears after entering)" << endl;
+    cout << "=================================WELCOME!=============================" << endl;
+    cout << "======================================================================" << endl;
+    cout << "================ Type one of operations listed below:=================" << endl;
+    cout << "1. addPerson - to add new person" << endl;
+    cout << "2. addBankClient - to add new bank client" << endl;
+    cout << "3. show - to print all of array data" << endl;
+    cout << "4. count - to show count of records" << endl;
+    cout << "5. delete - to delete record by index (input will appears after entering)" << endl;
+    cout << "6. save - to save to file \"output.txt\"" << endl;
+    cout << "7. update - to update record by index (input will appears after entering)" << endl;
 }
