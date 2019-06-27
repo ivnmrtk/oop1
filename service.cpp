@@ -52,18 +52,25 @@ void Service::addRecord(Person *obj)
 //Принимает индекс массива, а не отображаемый id.
 void Service::deleteRecordById(unsigned int id)
 {
-    if (recordsCount == 0) return;
+    if (recordsCount == 0) {
+        return;
+    }
     Person **bufferArray = new Person*[recordsCount-1];
+    bool isSkipped = false;
     unsigned int newIndex;
-    for (unsigned int i=0; i<recordsCount-1;) {
-        if (i >= (id - 1)) {
-            newIndex = i -1;
+    for (unsigned int i=0; i<recordsCount-1; i++) {
+        if (i == id) {
+            isSkipped = true;
         }
-        else {
+        if (isSkipped == true){
+            newIndex = i + 1;
+        }
+        if (isSkipped == false) {
             newIndex = i;
         }
         bufferArray[i] = records[newIndex];
     }
+    delete records[id];
     delete [] records;
     records = new Person*[recordsCount-1];
     for (unsigned int i = 0; i< recordsCount-1; i++) {
@@ -151,10 +158,11 @@ void Service::saveToFile()
     char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
     ofstream out;
     out.open(path);
-    if (out.is_open()){
+    if (out.is_open()) {
     for (int i = 0; i < recordsCount; ++i) {
         out << *records[i];
     }
+    cout << "Successfully written to file";
     }
 }
 

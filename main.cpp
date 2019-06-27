@@ -2,6 +2,8 @@
 #include <person.h>
 #include <bankclient.h>
 #include <service.h>
+#include <windows.h>
+
 
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 
@@ -10,6 +12,9 @@ void printSpecification();
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
     Service mainService = Service();
 

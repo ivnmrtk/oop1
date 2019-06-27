@@ -1,2 +1,2 @@
-Person(firstName=asd, lastName=asd, age=12, isDead=1, isMarried=1)
-BankClient(firstName=ytr, lastName=qwe, age=1, isDead=1, isMarried=1, currentAccount=5, servicePackageTitle=prem, isActive=1)
+Person(firstName=qwe, lastName=ytrhgn, age=12, isDead=1, isMarried=1)
+BankClient(firstName=werfg, lastName=fghn, age=123, isDead=1, isMarried=1, currentAccount=99090, servicePackageTitle=prem, isActive=1)
