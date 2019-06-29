@@ -124,7 +124,48 @@ bool Service::readFromFile(char *path)
     in.open(path);
     char inputLine[length];
     in.getline(inputLine, length);
-    if (getWordsCount(inputLine) == 5) {
+
+    if (strncmp(inputLine, "Person", 6) == 0) {
+        Person * person = new Person();
+        char * begin = strstr(inputLine, "firstName=");
+        begin = begin + 10;
+        char* end = begin;
+        while (*end != ',') {
+            end++;
+        }
+        int length = end - begin;
+        char firstName[length];
+        strncpy(firstName, begin, length);
+        person->setFirstName(firstName);
+
+        begin = strstr(inputLine, "lastName=");
+        begin = begin + 9;
+        end = begin;
+        while (*end != ',') {
+            end++;
+        }
+        length = end - begin;
+        char lastName[length];
+        person->setLastName(lastName);
+
+        begin = strstr(inputLine, "age=");
+        begin = begin + 4;
+        end = begin;
+        while (*end != ',') {
+            end++;
+        }
+        length = end - begin;
+        char age[length];
+        person->setAge(atoi(age));
+
+        begin = strstr(inputLine, "isDead=");
+        begin = begin + 7;
+        end = begin;
+
+
+    };
+
+ /*   if (getWordsCount(inputLine) == 5) {
         Person p;
         p.setFirstName(strtok(inputLine, " "));
         p.setLastName(strtok(nullptr, " "));
@@ -150,12 +191,13 @@ bool Service::readFromFile(char *path)
         bc.setIsActive(isActive==1 ? true : false);
         return true;
     }
+    */
     else return false;
 }
 
 void Service::saveToFile()
 {
-    char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
+    char * path = "C:/Users/ivano/qtprojects/oop1/output.txt";
     ofstream out;
     out.open(path);
     if (out.is_open()) {
