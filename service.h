@@ -19,7 +19,7 @@ public:
     Person &operator[](int index);
     ~Service();
     unsigned int getRecordsCount();
-    bool readFromFile(char* path);
+    bool readFromFile();
     void saveToFile();
 };
 

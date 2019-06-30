@@ -62,6 +62,12 @@ int main(int argc, char *argv[])
 
             mainService.updateRecord(index - 1);
         }
+        else if (strcmp(operation, "load") == 0) {
+            mainService.readFromFile();
+        }
+        else if (strcmp(operation, "help") == 0) {
+            printSpecification();
+        }
     }
 
     return a.exec();
@@ -77,5 +83,6 @@ void printSpecification(){
     cout << "4. count - to show count of records" << endl;
     cout << "5. delete - to delete record by index (input will appears after entering)" << endl;
     cout << "6. save - to save to file \"output.txt\"" << endl;
-    cout << "7. update - to update record by index (input will appears after entering)" << endl;
+    cout << "7. load - to load from file \"output.txt\"" << endl;
+    cout << "8. update - to update record by index (input will appears after entering)" << endl;
 }

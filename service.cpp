@@ -117,87 +117,192 @@ Person &Service::operator[](int index)
     return *records[index];
 }
 
-bool Service::readFromFile(char *path)
+bool Service::readFromFile()
 {
+    //char * path = "C:/Users/ivano/qtprojects/oop1/output.txt";
+    char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
     ifstream in;
     const int length = 256;
     in.open(path);
     char inputLine[length];
-    in.getline(inputLine, length);
 
-    if (strncmp(inputLine, "Person", 6) == 0) {
-        Person * person = new Person();
-        char * begin = strstr(inputLine, "firstName=");
-        begin = begin + 10;
-        char* end = begin;
-        while (*end != ',') {
-            end++;
+    if(in.is_open()){
+        while (in.getline(inputLine, length)){
+
+            if (strncmp(inputLine, "Person", 6) == 0) {
+                Person * person = new Person();
+
+                char * begin = strstr(inputLine, "firstName=");
+                begin = begin + 10;
+                char* end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                long long length = end - begin;
+                char firstName[length];
+                strncpy(firstName, begin, length);
+                person->setFirstName(firstName);
+
+                begin = strstr(inputLine, "lastName=");
+                begin = begin + 9;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char lastName[length];
+                strncpy(lastName, begin, length);
+                person->setLastName(lastName);
+
+                begin = strstr(inputLine, "age=");
+                begin = begin + 4;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char age[length];
+                strncpy(age, begin, length);
+                person->setAge(atoi(age));
+
+                begin = strstr(inputLine, "isDead=");
+                begin = begin + 7;
+                end = begin;
+                end++;
+                char isDead;
+                strncpy(&isDead, begin, 1);
+                if (isDead == '1'){
+                    person->setIsDead(true);
+                }
+                if (isDead == '0'){
+                    person->setIsDead(false);
+                }
+
+                begin = strstr(inputLine, "isMarried=");
+                begin = begin + 10;
+                end = begin;
+                end++;
+                char isMarried;
+                strncpy(&isMarried, begin, 1);
+                if (isMarried == '1'){
+                    person->setIsMarried(true);
+                }
+                if (isMarried == '0'){
+                    person->setIsMarried(false);
+                }
+                this->addRecord(person);
+            }
+
+            if (strncmp(inputLine, "BankClient", 10) == 0) {
+                BankClient * bankClient = new BankClient();
+
+                char * begin = strstr(inputLine, "firstName=");
+                begin = begin + 10;
+                char* end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                long long length = end - begin;
+                char firstName[length];
+                strncpy(firstName, begin, length);
+                bankClient->setFirstName(firstName);
+
+                begin = strstr(inputLine, "lastName=");
+                begin = begin + 9;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char lastName[length];
+                strncpy(lastName, begin, length);
+                bankClient->setLastName(lastName);
+
+                begin = strstr(inputLine, "age=");
+                begin = begin + 4;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char age[length];
+                strncpy(age, begin, length);
+                bankClient->setAge(atoi(age));
+
+                begin = strstr(inputLine, "isDead=");
+                begin = begin + 7;
+                end = begin;
+                end++;
+                char isDead;
+                strncpy(&isDead, begin, 1);
+                if (isDead == '1'){
+                    bankClient->setIsDead(true);
+                }
+                if (isDead == '0'){
+                    bankClient->setIsDead(false);
+                }
+
+                begin = strstr(inputLine, "isMarried=");
+                begin = begin + 10;
+                end = begin;
+                end++;
+                char isMarried;
+                strncpy(&isMarried, begin, 1);
+                if (isMarried == '1'){
+                    bankClient->setIsMarried(true);
+                }
+                if (isMarried == '0'){
+                    bankClient->setIsMarried(false);
+                }
+
+                begin = strstr(inputLine, "currentAccount=");
+                begin = begin + 15;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char currentAccount[length];
+                strncpy(currentAccount, begin, length);
+                bankClient->setCurrentAccount(atol(currentAccount));
+
+                begin = strstr(inputLine, "servicePackageTitle=");
+                begin = begin + 20;
+                end = begin;
+                while (*end != ',') {
+                    end++;
+                }
+                length = end - begin;
+                char servicePackageTitle[length];
+                strncpy(servicePackageTitle, begin, length);
+                bankClient->setServicePackageTitle(servicePackageTitle);
+
+                begin = strstr(inputLine, "isActive=");
+                begin = begin + 10;
+                end = begin;
+                end++;
+                char isActive;
+                strncpy(&isActive, begin, 1);
+                if (isActive == '1'){
+                    bankClient->setIsActive(true);
+                }
+                if (isActive == '0'){
+                    bankClient->setIsActive(false);
+                }
+
+                this->addRecord(bankClient);
+            }
         }
-        int length = end - begin;
-        char firstName[length];
-        strncpy(firstName, begin, length);
-        person->setFirstName(firstName);
-
-        begin = strstr(inputLine, "lastName=");
-        begin = begin + 9;
-        end = begin;
-        while (*end != ',') {
-            end++;
-        }
-        length = end - begin;
-        char lastName[length];
-        person->setLastName(lastName);
-
-        begin = strstr(inputLine, "age=");
-        begin = begin + 4;
-        end = begin;
-        while (*end != ',') {
-            end++;
-        }
-        length = end - begin;
-        char age[length];
-        person->setAge(atoi(age));
-
-        begin = strstr(inputLine, "isDead=");
-        begin = begin + 7;
-        end = begin;
-
-
-    };
-
- /*   if (getWordsCount(inputLine) == 5) {
-        Person p;
-        p.setFirstName(strtok(inputLine, " "));
-        p.setLastName(strtok(nullptr, " "));
-        p.setAge(atoi(strtok(nullptr, " ")));
-        short isDead = atoi(strtok(nullptr, " "));
-        p.setIsDead(isDead==1 ? true : false);
-        short isMarried = atoi(strtok(nullptr, " "));
-        p.setIsMarried(isMarried==1 ? true : false);
-        return true;
     }
-    if (getWordsCount(inputLine) == 8){
-        BankClient bc;
-        bc.setFirstName(strtok(inputLine, " "));
-        bc.setLastName(strtok(nullptr, " "));
-        bc.setAge(atoi(strtok(nullptr, " ")));
-        short isDead = atoi(strtok(nullptr, " "));
-        bc.setIsDead(isDead==1 ? true : false);
-        short isMarried = atoi(strtok(nullptr, " "));
-        bc.setIsMarried(isMarried==1 ? true : false);
-        bc.setCurrentAccount(atol(strtok(nullptr, " ")));
-        bc.setServicePackageTitle(strtok(nullptr, " "));
-        short isActive = atoi(strtok(nullptr, " "));
-        bc.setIsActive(isActive==1 ? true : false);
-        return true;
-    }
-    */
-    else return false;
+
+    in.close();
+    return false;
 }
 
 void Service::saveToFile()
 {
-    char * path = "C:/Users/ivano/qtprojects/oop1/output.txt";
+    //char * path = "C:/Users/ivano/qtprojects/oop1/output.txt";
+    char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
     ofstream out;
     out.open(path);
     if (out.is_open()) {
