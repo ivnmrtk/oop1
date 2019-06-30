@@ -122,12 +122,12 @@ bool Service::readFromFile()
     //char * path = "C:/Users/ivano/qtprojects/oop1/output.txt";
     char * path = "C:/Users/Ivan/Documents/QtProjects/oop1/output.txt";
     ifstream in;
-    const int length = 256;
+    //const int inputLength = 512;
     in.open(path);
-    char inputLine[length];
 
     if(in.is_open()){
-        while (in.getline(inputLine, length)){
+        char inputLine[255];
+        while (in.getline(inputLine, 255)){
 
             if (strncmp(inputLine, "Person", 6) == 0) {
                 Person * person = new Person();
@@ -139,9 +139,11 @@ bool Service::readFromFile()
                     end++;
                 }
                 long long length = end - begin;
-                char firstName[length];
+                char * firstName = new char[length + 1];
                 strncpy(firstName, begin, length);
+                firstName[length] = '\0';
                 person->setFirstName(firstName);
+                firstName = nullptr;
 
                 begin = strstr(inputLine, "lastName=");
                 begin = begin + 9;
@@ -150,9 +152,11 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char lastName[length];
-                strncpy(lastName, begin, length);
+                char * lastName = new char[length];
+                strncpy(lastName, begin, length + 1);
+                lastName[length] = '\0';
                 person->setLastName(lastName);
+                lastName = nullptr;
 
                 begin = strstr(inputLine, "age=");
                 begin = begin + 4;
@@ -161,9 +165,10 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char age[length];
+                char* age = new char[length];
                 strncpy(age, begin, length);
                 person->setAge(atoi(age));
+                age = nullptr;
 
                 begin = strstr(inputLine, "isDead=");
                 begin = begin + 7;
@@ -190,6 +195,9 @@ bool Service::readFromFile()
                 if (isMarried == '0'){
                     person->setIsMarried(false);
                 }
+                begin = nullptr;
+                end = nullptr;
+
                 this->addRecord(person);
             }
 
@@ -203,9 +211,10 @@ bool Service::readFromFile()
                     end++;
                 }
                 long long length = end - begin;
-                char firstName[length];
+                char * firstName = new char[length];
                 strncpy(firstName, begin, length);
                 bankClient->setFirstName(firstName);
+                firstName = nullptr;
 
                 begin = strstr(inputLine, "lastName=");
                 begin = begin + 9;
@@ -214,9 +223,10 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char lastName[length];
+                char* lastName = new char[length];
                 strncpy(lastName, begin, length);
                 bankClient->setLastName(lastName);
+                lastName = nullptr;
 
                 begin = strstr(inputLine, "age=");
                 begin = begin + 4;
@@ -225,7 +235,7 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char age[length];
+                char * age = new char[length];
                 strncpy(age, begin, length);
                 bankClient->setAge(atoi(age));
 
@@ -262,9 +272,10 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char currentAccount[length];
+                char* currentAccount = new char[length];
                 strncpy(currentAccount, begin, length);
                 bankClient->setCurrentAccount(atol(currentAccount));
+
 
                 begin = strstr(inputLine, "servicePackageTitle=");
                 begin = begin + 20;
@@ -273,7 +284,7 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char servicePackageTitle[length];
+                char* servicePackageTitle = new char[length];
                 strncpy(servicePackageTitle, begin, length);
                 bankClient->setServicePackageTitle(servicePackageTitle);
 
@@ -289,9 +300,12 @@ bool Service::readFromFile()
                 if (isActive == '0'){
                     bankClient->setIsActive(false);
                 }
+                begin = nullptr;
+                end = nullptr;
 
                 this->addRecord(bankClient);
             }
+            memset(inputLine, 0, sizeof (inputLine));
         }
     }
 
@@ -313,9 +327,29 @@ void Service::saveToFile()
     }
 }
 
-
 Service::~Service()
 {
     delete [] records;
     recordsCount = 0;
 }
+
+bool compFirstName(const Person* a, const Person * b)
+{
+    return a->getFirstName()[0] < b->getFirstName()[0];
+}
+
+void Service::sortByFirstName()
+{
+    std::sort(records, records + recordsCount, compFirstName);
+}
+
+bool compAge(const Person *a, const Person *b)
+{
+    return a->getAge() < b->getAge();
+}
+
+void Service::sortByAge()
+{
+    std::sort(records, records + recordsCount, compAge);
+}
+

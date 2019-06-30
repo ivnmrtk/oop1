@@ -3,6 +3,7 @@
 #include "person.h"
 #include <fstream>
 #include "bankclient.h"
+#include <algorithm>
 
 class Service
 {
@@ -21,6 +22,10 @@ public:
     unsigned int getRecordsCount();
     bool readFromFile();
     void saveToFile();
+    friend bool compFirstName(const Person * a, const Person * b);
+    void sortByFirstName();
+    friend bool compAge(const Person *a, const Person *b);
+    void sortByAge();
 };
 
 #endif // SERVICE_H

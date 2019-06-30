@@ -68,6 +68,10 @@ int main(int argc, char *argv[])
         else if (strcmp(operation, "help") == 0) {
             printSpecification();
         }
+        else if (strcmp(operation, "sort") == 0) {
+            mainService.sortByFirstName();
+        }
+
     }
 
     return a.exec();
