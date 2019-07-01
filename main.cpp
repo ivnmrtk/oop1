@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
             mainService.showAllRecords();
         }
         else if (strcmp(operation, "count") == 0) {
-            mainService.getRecordsCount();
+            cout << mainService.getRecordsCount() << endl;
         }
         else if (strcmp(operation, "delete") == 0) {
             cout << "Enter element index to delete" << endl;
@@ -69,7 +69,30 @@ int main(int argc, char *argv[])
             printSpecification();
         }
         else if (strcmp(operation, "sort") == 0) {
-            mainService.sortByFirstName();
+            cout << "Enter field (firstName/lastName/age)" << endl;
+            char field[32];
+            cin >> field;
+            cout << "Enter direction (asc/desc)" << endl;
+            char direction[32];
+            cin >> direction;
+
+            if (strncmp(field, "firstName", 9) == 0) {
+                if(strncmp(direction, "asc", 3) == 0 ) {
+                    mainService.sortByFirstNameAsc();
+                }
+                if(strncmp(direction, "desc", 4) == 0 ) {
+                    mainService.sortByFirstNameDesc();
+                }
+            }
+            if (strncmp(field, "age", 3) == 0) {
+                if(strncmp(direction, "asc", 3) == 0 ) {
+                    mainService.sortByAgeAsc();
+                }
+                if(strncmp(direction, "desc", 4) == 0 ) {
+                    mainService.sortByAgeDesc();
+                }
+            }
+
         }
 
     }

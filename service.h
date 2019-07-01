@@ -22,10 +22,14 @@ public:
     unsigned int getRecordsCount();
     bool readFromFile();
     void saveToFile();
-    friend bool compFirstName(const Person * a, const Person * b);
-    void sortByFirstName();
-    friend bool compAge(const Person *a, const Person *b);
-    void sortByAge();
+    friend bool compFirstNameAsc(const Person * a, const Person * b);
+    void sortByFirstNameAsc();
+    friend bool compFirstNamaDesc(const Person * a, const Person * b);
+    void sortByFirstNameDesc();
+    friend bool compAgeAsc(const Person *a, const Person *b);
+    void sortByAgeAsc();
+    friend bool compAgeDesc(const Person *a, const Person *b);
+    void sortByAgeDesc();
 };
 
 #endif // SERVICE_H

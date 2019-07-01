@@ -126,7 +126,7 @@ bool Service::readFromFile()
     in.open(path);
 
     if(in.is_open()){
-        char inputLine[255];
+        char inputLine[256];
         while (in.getline(inputLine, 255)){
 
             if (strncmp(inputLine, "Person", 6) == 0) {
@@ -152,8 +152,8 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char * lastName = new char[length];
-                strncpy(lastName, begin, length + 1);
+                char * lastName = new char[length + 1];
+                strncpy(lastName, begin, length);
                 lastName[length] = '\0';
                 person->setLastName(lastName);
                 lastName = nullptr;
@@ -211,8 +211,9 @@ bool Service::readFromFile()
                     end++;
                 }
                 long long length = end - begin;
-                char * firstName = new char[length];
+                char * firstName = new char[length + 1];
                 strncpy(firstName, begin, length);
+                firstName[length] = '\0';
                 bankClient->setFirstName(firstName);
                 firstName = nullptr;
 
@@ -223,8 +224,9 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char* lastName = new char[length];
+                char* lastName = new char[length + 1];
                 strncpy(lastName, begin, length);
+                lastName[length] = '\0';
                 bankClient->setLastName(lastName);
                 lastName = nullptr;
 
@@ -284,8 +286,9 @@ bool Service::readFromFile()
                     end++;
                 }
                 length = end - begin;
-                char* servicePackageTitle = new char[length];
+                char* servicePackageTitle = new char[length + 1];
                 strncpy(servicePackageTitle, begin, length);
+                servicePackageTitle[length] = '\0';
                 bankClient->setServicePackageTitle(servicePackageTitle);
 
                 begin = strstr(inputLine, "isActive=");
@@ -333,23 +336,41 @@ Service::~Service()
     recordsCount = 0;
 }
 
-bool compFirstName(const Person* a, const Person * b)
+bool compFirstNameAsc(const Person* a, const Person * b)
 {
     return a->getFirstName()[0] < b->getFirstName()[0];
 }
 
-void Service::sortByFirstName()
+void Service::sortByFirstNameAsc()
 {
-    std::sort(records, records + recordsCount, compFirstName);
+    std::sort(records, records + recordsCount, compFirstNameAsc);
+}
+bool compFirstNameDesc(const Person* a, const Person * b)
+{
+    return a->getFirstName()[0] > b->getFirstName()[0];
 }
 
-bool compAge(const Person *a, const Person *b)
+void Service::sortByFirstNameDesc()
+{
+    std::sort(records, records + recordsCount, compFirstNameDesc);
+}
+
+bool compAgeAsc(const Person *a, const Person *b)
 {
     return a->getAge() < b->getAge();
 }
 
-void Service::sortByAge()
+void Service::sortByAgeAsc()
 {
-    std::sort(records, records + recordsCount, compAge);
+    std::sort(records, records + recordsCount, compAgeAsc);
 }
 
+bool compAgeDesc(const Person *a, const Person *b)
+{
+    return a->getAge() > b->getAge();
+}
+
+void Service::sortByAgeDesc()
+{
+    std::sort(records, records + recordsCount, compAgeDesc);
+}
