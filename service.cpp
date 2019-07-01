@@ -73,10 +73,10 @@ void Service::deleteRecordById(unsigned int id)
     Person* personPointer;
     bool isSkipped = false;
     unsigned int newIndex;
+    personPointer = records[id];
     for (unsigned int i=0; i<recordsCount-1; i++) {
         if (i == id) {
             isSkipped = true;
-            personPointer = records[i];
         }
         if (isSkipped == true){
             newIndex = i + 1;
@@ -111,6 +111,7 @@ void Service::deleteRecordById(unsigned int id)
         bufferArray[i] = sourceRecords[newIndex];
     }
 
+
     delete [] sourceRecords;
     sourceRecords = new Person*[recordsCount-1];
     for (unsigned int i = 0; i< recordsCount-1; i++) {
@@ -118,6 +119,7 @@ void Service::deleteRecordById(unsigned int id)
     }
 
     delete personPointer;
+    delete [] bufferArray;
     recordsCount--;
 }
 

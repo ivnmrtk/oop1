@@ -71,6 +71,9 @@ int main(int argc, char *argv[])
         else if (strcmp(operation, "source") == 0) {
             mainService.showSourceRecords();
         }
+        else if (strcmp(operation, "reset") == 0) {
+            mainService.resetSort();
+        }
         else if (strcmp(operation, "sort") == 0) {
             cout << "Enter field (firstName/lastName/age)" << endl;
             char field[32];
@@ -99,6 +102,7 @@ int main(int argc, char *argv[])
         }
 
     }
+    exit(0);
 
     return a.exec();
 }
