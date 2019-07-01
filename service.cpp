@@ -31,19 +31,33 @@ void Service::addRecord(Person *obj)
     if (recordsCount == 0) {
         records = new Person*[1];
         records[0] = obj;
+
+        sourceRecords = new Person*[1];
+        sourceRecords[0] = obj;
     }
     else {
         Person **bufferArray = new Person*[recordsCount];
         for (int i=0; i< recordsCount; i++) {
             bufferArray[i] = records[i];
         }
-        //FIXME
         delete []  records;
         records = new Person*[recordsCount + 1];
         for (int i =0; i< recordsCount; i++) {
             records[i] = bufferArray [i];
         }
         records[recordsCount] = obj;
+        delete [] bufferArray;
+
+        bufferArray = new Person*[recordsCount];
+        for (int i=0; i< recordsCount; i++) {
+            bufferArray[i] = sourceRecords[i];
+        }
+        delete []  sourceRecords;
+        sourceRecords = new Person*[recordsCount + 1];
+        for (int i =0; i< recordsCount; i++) {
+            sourceRecords[i] = bufferArray [i];
+        }
+        sourceRecords[recordsCount] = obj;
         delete [] bufferArray;
     }
     recordsCount++;
@@ -56,11 +70,13 @@ void Service::deleteRecordById(unsigned int id)
         return;
     }
     Person **bufferArray = new Person*[recordsCount-1];
+    Person* personPointer;
     bool isSkipped = false;
     unsigned int newIndex;
     for (unsigned int i=0; i<recordsCount-1; i++) {
         if (i == id) {
             isSkipped = true;
+            personPointer = records[i];
         }
         if (isSkipped == true){
             newIndex = i + 1;
@@ -70,13 +86,38 @@ void Service::deleteRecordById(unsigned int id)
         }
         bufferArray[i] = records[newIndex];
     }
-    delete records[id];
+
     delete [] records;
     records = new Person*[recordsCount-1];
     for (unsigned int i = 0; i< recordsCount-1; i++) {
         records[i] = bufferArray[i];
     }
     delete [] bufferArray;
+
+
+    bufferArray = new Person*[recordsCount-1];
+    isSkipped = false;
+    newIndex = NULL;
+    for (unsigned int i=0; i<recordsCount-1; i++) {
+        if (sourceRecords[i] == personPointer) {
+            isSkipped = true;
+        }
+        if (isSkipped == true){
+            newIndex = i + 1;
+        }
+        if (isSkipped == false) {
+            newIndex = i;
+        }
+        bufferArray[i] = sourceRecords[newIndex];
+    }
+
+    delete [] sourceRecords;
+    sourceRecords = new Person*[recordsCount-1];
+    for (unsigned int i = 0; i< recordsCount-1; i++) {
+        sourceRecords[i] = bufferArray[i];
+    }
+
+    delete personPointer;
     recordsCount--;
 }
 
@@ -89,6 +130,22 @@ void Service::showAllRecords()
     }
 }
 
+void Service::showSourceRecords()
+{
+    if (recordsCount != 0) {
+        for (unsigned int i=0; i < recordsCount; i++) {
+            cout << i + 1 << ". "<< *sourceRecords [i] << endl;
+        }
+    }
+}
+
+void Service::resetSort()
+{
+    for (int i = 0; i < recordsCount; i++) {
+        records[i] = sourceRecords [i];
+    }
+}
+
 //Принимает индекс массива, а не отображаемый id.
 void Service::updateRecord(unsigned int id)
 {
@@ -98,18 +155,28 @@ void Service::updateRecord(unsigned int id)
     }
 
     char className = records[id]->getClass();
-    delete records[id];
+    Person* originalPersonPointer = records[id];
+    Person* updatedPointer;
     if (className == 'P'){
         Person *p = new Person();
         cin >> *p;
         records[id] = p;
+        updatedPointer = p;
     }
-    if (className == 'B'){
+    else if (className == 'B'){
         BankClient *bc = new BankClient();
         cin >> *bc;
         records[id] = bc;
+        updatedPointer = bc;
     }
 
+    for (int i = 0; i < recordsCount; i++) {
+        if (sourceRecords[i] == originalPersonPointer){
+            sourceRecords[i] = updatedPointer;
+        }
+    }
+
+    delete originalPersonPointer;
 }
 
 Person &Service::operator[](int index)

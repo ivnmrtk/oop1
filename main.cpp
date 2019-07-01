@@ -68,6 +68,9 @@ int main(int argc, char *argv[])
         else if (strcmp(operation, "help") == 0) {
             printSpecification();
         }
+        else if (strcmp(operation, "source") == 0) {
+            mainService.showSourceRecords();
+        }
         else if (strcmp(operation, "sort") == 0) {
             cout << "Enter field (firstName/lastName/age)" << endl;
             char field[32];
