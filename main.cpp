@@ -101,6 +101,13 @@ int main(int argc, char *argv[])
 
         }
 
+        else if (strcmp(operation, "filter") == 0) {
+            cout << "Enter substring for filter" << endl;
+            char filter[32];
+            cin >> filter;
+            mainService.filterFirstName(filter);
+        }
+
     }
     exit(0);
 

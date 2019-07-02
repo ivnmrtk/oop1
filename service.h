@@ -9,6 +9,7 @@ class Service
 {
 private:
     unsigned int recordsCount = 0;
+    unsigned int printedCount = 0;
     Person ** records = nullptr;
     Person ** sourceRecords = nullptr;
     unsigned int getWordsCount(char * str);
@@ -33,6 +34,7 @@ public:
     void sortByAgeAsc();
     friend bool compAgeDesc(const Person *a, const Person *b);
     void sortByAgeDesc();
+    void filterFirstName(char* str);
 };
 
 #endif // SERVICE_H

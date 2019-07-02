@@ -61,20 +61,26 @@ void Service::addRecord(Person *obj)
         delete [] bufferArray;
     }
     recordsCount++;
+    printedCount++;
 }
 
 //Принимает индекс массива, а не отображаемый id.
 void Service::deleteRecordById(unsigned int id)
 {
-    if (recordsCount == 0) {
+    if (printedCount == 0){
+        cout << "There're no records in array for printing, maybe you should reset filter?" << endl;
         return;
     }
-    Person **bufferArray = new Person*[recordsCount-1];
+    if (recordsCount == 0) {
+        cout << "There're no records to delete";
+        return;
+    }
+    Person **bufferArray = new Person*[printedCount-1];
     Person* personPointer;
     bool isSkipped = false;
     unsigned int newIndex;
     personPointer = records[id];
-    for (unsigned int i=0; i<recordsCount-1; i++) {
+    for (unsigned int i = 0; i< printedCount - 1; i++) {
         if (i == id) {
             isSkipped = true;
         }
@@ -88,8 +94,8 @@ void Service::deleteRecordById(unsigned int id)
     }
 
     delete [] records;
-    records = new Person*[recordsCount-1];
-    for (unsigned int i = 0; i< recordsCount-1; i++) {
+    records = new Person*[printedCount-1];
+    for (unsigned int i = 0; i< printedCount-1; i++) {
         records[i] = bufferArray[i];
     }
     delete [] bufferArray;
@@ -121,12 +127,13 @@ void Service::deleteRecordById(unsigned int id)
     delete personPointer;
     delete [] bufferArray;
     recordsCount--;
+    printedCount--;
 }
 
 void Service::showAllRecords()
 {
     if (recordsCount != 0) {
-        for (unsigned int i=0; i < recordsCount; i++) {
+        for (unsigned int i=0; i < printedCount; i++) {
             cout << i + 1 << ". "<< *records [i] << endl;
         }
     }
@@ -143,7 +150,10 @@ void Service::showSourceRecords()
 
 void Service::resetSort()
 {
-    for (int i = 0; i < recordsCount; i++) {
+    delete [] records;
+    printedCount = recordsCount;
+    records = new Person* [printedCount]();
+    for (int i = 0; i < printedCount; i++) {
         records[i] = sourceRecords [i];
     }
 }
@@ -153,6 +163,14 @@ void Service::updateRecord(unsigned int id)
 {
     if (id > recordsCount){
         cout << "Invalid index";
+        return;
+    }
+    if (printedCount == 0){
+        cout << "There're no records in array for printing, maybe you should reset filter?" << endl;
+        return;
+    }
+    if (recordsCount == 0) {
+        cout << "There're no records to delete";
         return;
     }
 
@@ -412,7 +430,7 @@ bool compFirstNameAsc(const Person* a, const Person * b)
 
 void Service::sortByFirstNameAsc()
 {
-    std::sort(records, records + recordsCount, compFirstNameAsc);
+    std::sort(records, records + printedCount, compFirstNameAsc);
 }
 bool compFirstNameDesc(const Person* a, const Person * b)
 {
@@ -421,7 +439,7 @@ bool compFirstNameDesc(const Person* a, const Person * b)
 
 void Service::sortByFirstNameDesc()
 {
-    std::sort(records, records + recordsCount, compFirstNameDesc);
+    std::sort(records, records + printedCount, compFirstNameDesc);
 }
 
 bool compAgeAsc(const Person *a, const Person *b)
@@ -431,7 +449,7 @@ bool compAgeAsc(const Person *a, const Person *b)
 
 void Service::sortByAgeAsc()
 {
-    std::sort(records, records + recordsCount, compAgeAsc);
+    std::sort(records, records + printedCount, compAgeAsc);
 }
 
 bool compAgeDesc(const Person *a, const Person *b)
@@ -441,5 +459,40 @@ bool compAgeDesc(const Person *a, const Person *b)
 
 void Service::sortByAgeDesc()
 {
-    std::sort(records, records + recordsCount, compAgeDesc);
+    std::sort(records, records + printedCount, compAgeDesc);
+}
+
+void Service::filterFirstName(char* str)
+{
+    unsigned int matchingCount = 0;
+    for (int i = 0; i < printedCount; i++) {
+        if (strstr(records[i]->getFirstName(), str) != nullptr){
+            matchingCount++;
+        }
+    }
+    if (matchingCount == 0){
+        cout << "There're no elemetns matching specified mask";
+        return;
+    }
+
+    Person ** bufferArray = new Person*[printedCount]();
+    for (int i = 0; i < printedCount; i++){
+        bufferArray [i] = records[i];
+    }
+
+    delete [] records;
+
+
+    records = new Person*[printedCount]();
+    int newIndex = 0;
+    for (int i = 0; i < printedCount; i++) {
+        if (strstr(bufferArray[i]->getFirstName(), str) != nullptr){
+            records[newIndex++] = bufferArray[i];
+        }
+    }
+
+    printedCount = matchingCount;
+
+    delete [] bufferArray;
+
 }
