@@ -102,10 +102,24 @@ int main(int argc, char *argv[])
         }
 
         else if (strcmp(operation, "filter") == 0) {
+
+            cout << "Enter filed (firstName/lastName)" << endl;
+            char field[32];
+            cin >> field;
+
             cout << "Enter substring for filter" << endl;
             char filter[32];
             cin >> filter;
-            mainService.filterFirstName(filter);
+
+            if (strcmp(field, "firstName") == 0){
+                mainService.filterFirstName(filter);
+            }
+
+            if (strcmp(field, "lastName") == 0){
+                mainService.filterLastName(filter);
+            }
+
+
         }
 
     }
@@ -126,4 +140,7 @@ void printSpecification(){
     cout << "6. save - to save to file \"output.txt\"" << endl;
     cout << "7. load - to load from file \"output.txt\"" << endl;
     cout << "8. update - to update record by index (input will appears after entering)" << endl;
+    cout << "9. sort - to sort records by one of field by specified order" << endl;
+    cout << "10. filter -  by substring on specified field" << endl;
+
 }

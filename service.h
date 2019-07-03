@@ -28,13 +28,20 @@ public:
     void saveToFile();
     friend bool compFirstNameAsc(const Person * a, const Person * b);
     void sortByFirstNameAsc();
-    friend bool compFirstNamaDesc(const Person * a, const Person * b);
+    friend bool compFirstNameDesc(const Person * a, const Person * b);
     void sortByFirstNameDesc();
+
+    friend bool compLastNameAsc(const Person * a, const Person * b);
+    void sortByLastNameAsc();
+    friend bool compLastNameDesc(const Person * a, const Person * b);
+    void sortByLastNameDesc();
+
     friend bool compAgeAsc(const Person *a, const Person *b);
     void sortByAgeAsc();
     friend bool compAgeDesc(const Person *a, const Person *b);
     void sortByAgeDesc();
     void filterFirstName(char* str);
+    void filterLastName(char* str);
 };
 
 #endif // SERVICE_H

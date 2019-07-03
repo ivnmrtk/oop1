@@ -442,6 +442,29 @@ void Service::sortByFirstNameDesc()
     std::sort(records, records + printedCount, compFirstNameDesc);
 }
 
+
+bool compLastNameAsc(const Person* a, const Person * b)
+{
+    return a->getLastName()[0] < b->getLastName()[0];
+}
+
+void Service::sortByLastNameAsc()
+{
+    std::sort(records, records + printedCount, compLastNameAsc);
+}
+bool compLastNameDesc(const Person* a, const Person * b)
+{
+    return a->getLastName()[0] > b->getLastName()[0];
+}
+
+void Service::sortByLastNameDesc()
+{
+    std::sort(records, records + printedCount, compFirstNameDesc);
+}
+
+
+
+
 bool compAgeAsc(const Person *a, const Person *b)
 {
     return a->getAge() < b->getAge();
@@ -487,6 +510,41 @@ void Service::filterFirstName(char* str)
     int newIndex = 0;
     for (int i = 0; i < printedCount; i++) {
         if (strstr(bufferArray[i]->getFirstName(), str) != nullptr){
+            records[newIndex++] = bufferArray[i];
+        }
+    }
+
+    printedCount = matchingCount;
+
+    delete [] bufferArray;
+
+}
+
+void Service::filterLastName(char* str)
+{
+    unsigned int matchingCount = 0;
+    for (int i = 0; i < printedCount; i++) {
+        if (strstr(records[i]->getLastName(), str) != nullptr){
+            matchingCount++;
+        }
+    }
+    if (matchingCount == 0){
+        cout << "There're no elemetns matching specified mask";
+        return;
+    }
+
+    Person ** bufferArray = new Person*[printedCount]();
+    for (int i = 0; i < printedCount; i++){
+        bufferArray [i] = records[i];
+    }
+
+    delete [] records;
+
+
+    records = new Person*[printedCount]();
+    int newIndex = 0;
+    for (int i = 0; i < printedCount; i++) {
+        if (strstr(bufferArray[i]->getLastName(), str) != nullptr){
             records[newIndex++] = bufferArray[i];
         }
     }
