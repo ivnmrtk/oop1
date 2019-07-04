@@ -131,16 +131,17 @@ int main(int argc, char *argv[])
 void printSpecification(){
     cout << "=================================WELCOME!=============================" << endl;
     cout << "======================================================================" << endl;
-    cout << "================ Type one of operations listed below:=================" << endl;
-    cout << "1. addPerson - to add new person" << endl;
-    cout << "2. addBankClient - to add new bank client" << endl;
-    cout << "3. show - to print all of array data" << endl;
-    cout << "4. count - to show count of records" << endl;
-    cout << "5. delete - to delete record by index (input will appears after entering)" << endl;
-    cout << "6. save - to save to file \"output.txt\"" << endl;
-    cout << "7. load - to load from file \"output.txt\"" << endl;
-    cout << "8. update - to update record by index (input will appears after entering)" << endl;
-    cout << "9. sort - to sort records by one of field by specified order" << endl;
-    cout << "10. filter -  by substring on specified field" << endl;
+    cout << "================ Enter one of operations listed below:=================" << endl;
+    cout << " addPerson - to add new person" << endl;
+    cout << " addBankClient - to add new bank client" << endl;
+    cout << " show - to print all of array data" << endl;
+    cout << " count - to show count of records" << endl;
+    cout << " delete - to delete record by index (input will appears after entering)" << endl;
+    cout << " save - to save to file \"output.txt\"" << endl;
+    cout << " load - to load from file \"output.txt\"" << endl;
+    cout << " update - to update record by index (input will appears after entering)" << endl;
+    cout << " sort - to sort records by one of field by specified order" << endl;
+    cout << " filter -  by substring on specified field" << endl;
+    cout << " help -  by substring on specified field" << endl;
 
 }
